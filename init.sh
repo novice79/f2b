@@ -32,6 +32,7 @@ root=${SSMTP_USER}
 mailhub=${SSMTP_HOST}:${SSMTP_PORT}
 AuthUser=${SSMTP_USER}
 AuthPass=${SSMTP_PASSWORD}
+FromLineOverride=YES
 hostname=${SSMTP_HOSTNAME}
 FromLineOverride=YES
 EOT
