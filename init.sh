@@ -20,7 +20,7 @@ log "F2B_LOG_LEVEL=${F2B_LOG_LEVEL:=INFO}"
 log "F2B_DB_PURGE_AGE=${F2B_DB_PURGE_AGE:=1d}"
 log "F2B_MAX_RETRY=${F2B_MAX_RETRY:=3}"
 log "F2B_DEST_EMAIL=${F2B_DEST_EMAIL:=david@cninone.com}"
-log "F2B_SENDER=${F2B_SENDER:=$(hostname -f) <${SSMTP_USER}>}"
+log "F2B_SENDER=${F2B_SENDER:=${SSMTP_USER}}"
 log "F2B_ACTION=${F2B_ACTION:=%(action_mwl)s}"
 
 log "SSH_PORT=${SSH_PORT:=22}"
@@ -40,14 +40,14 @@ sed -i "s/logtarget =.*/logtarget = STDOUT/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/loglevel =.*/loglevel = $F2B_LOG_LEVEL/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbfile =.*/dbfile = \/data\/db\/fail2ban\.sqlite3/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbpurgeage =.*/dbpurgeage = $F2B_DB_PURGE_AGE/g" /etc/fail2ban/fail2ban.conf
-# sed -i "s/chain =.*/chain = DOCKER-USER/g" /etc/fail2ban/action.d/iptables-common.conf
+sed -i "s/chain =.*/chain = DOCKER-USER/g" /etc/fail2ban/action.d/iptables-common.conf
 cat > /etc/fail2ban/jail.local <<EOL
 [DEFAULT]
 bantime  = 7200
 maxretry = ${F2B_MAX_RETRY}
 sender = ${F2B_SENDER}
 destemail = ${F2B_DEST_EMAIL}
-action = ${F2B_ACTION}
+action = ${F2B_ACTION}[sendername="${SSMTP_HOSTNAME}"]
 
 [ssh]
 port     = ${SSH_PORT}
