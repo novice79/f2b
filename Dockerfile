@@ -7,7 +7,8 @@ RUN apt update && apt install -y fail2ban iptables inetutils-ping whois ssmtp lo
     && mkdir -p /var/run/fail2ban /data/db \
     && locale-gen en_US.UTF-8 zh_CN.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
-COPY mail.conf /etc/fail2ban/action.d/mail.conf
+COPY sendmail-common.conf /etc/fail2ban/action.d/sendmail-common.conf
+COPY sendmail-whois-lines.conf /etc/fail2ban/action.d/sendmail-whois-lines.conf
 COPY init.sh /init.sh
 
 WORKDIR /etc/fail2ban
