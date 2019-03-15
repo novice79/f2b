@@ -40,7 +40,7 @@ sed -i "s/logtarget =.*/logtarget = STDOUT/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/loglevel =.*/loglevel = $F2B_LOG_LEVEL/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbfile =.*/dbfile = \/data\/db\/fail2ban\.sqlite3/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbpurgeage =.*/dbpurgeage = $F2B_DB_PURGE_AGE/g" /etc/fail2ban/fail2ban.conf
-sed -i "s/chain =.*/chain = DOCKER-USER/g" /etc/fail2ban/action.d/iptables-common.conf
+# sed -i "s/chain =.*/chain = DOCKER-USER/g" /etc/fail2ban/action.d/iptables-common.conf
 cat > /etc/fail2ban/jail.local <<EOL
 [DEFAULT]
 bantime  = 7200
