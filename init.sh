@@ -49,7 +49,7 @@ sender = ${F2B_SENDER}
 destemail = ${F2B_DEST_EMAIL}
 action = ${F2B_ACTION}[sendername="${SSMTP_HOSTNAME}"]
 
-[ssh]
+[sshd]
 port     = ${SSH_PORT}
 EOL
 
