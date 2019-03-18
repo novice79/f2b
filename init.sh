@@ -12,7 +12,7 @@ echo ${TZ} > /etc/timezone
 log "These environment variables, that you can customize via -e"
 log "SSMTP_PORT=${SSMTP_PORT:=587}"
 log "SSMTP_HOST=${SSMTP_HOST:=smtp.exmail.qq.com}"
-log "SSMTP_HOSTNAME=${SSMTP_HOSTNAME:=$(hostname -f)}"
+HOSTNAME=$(hostname -f)
 log "SSMTP_USER=${SSMTP_USER:=david}"
 log "SSMTP_PASSWORD=${SSMTP_PASSWORD:=freego}"
 
@@ -20,7 +20,7 @@ log "F2B_LOG_LEVEL=${F2B_LOG_LEVEL:=INFO}"
 log "F2B_DB_PURGE_AGE=${F2B_DB_PURGE_AGE:=1d}"
 log "F2B_MAX_RETRY=${F2B_MAX_RETRY:=3}"
 log "F2B_DEST_EMAIL=${F2B_DEST_EMAIL:=david@cninone.com}"
-log "F2B_SENDER=${F2B_SENDER:=${SSMTP_USER}}"
+log "F2B_SENDERNAME=${F2B_SENDERNAME:=${HOSTNAME}}"
 log "F2B_ACTION=${F2B_ACTION:=%(action_mwl)s}"
 
 log "SSH_PORT=${SSH_PORT:=22}"
@@ -33,7 +33,7 @@ mailhub=${SSMTP_HOST}:${SSMTP_PORT}
 AuthUser=${SSMTP_USER}
 AuthPass=${SSMTP_PASSWORD}
 FromLineOverride=YES
-hostname=${SSMTP_HOSTNAME}
+hostname=${HOSTNAME}
 EOT
 log "Setting Fail2ban configuration..."
 sed -i "s/logtarget =.*/logtarget = STDOUT/g" /etc/fail2ban/fail2ban.conf
@@ -45,9 +45,9 @@ cat > /etc/fail2ban/jail.local <<EOL
 [DEFAULT]
 bantime  = 7200
 maxretry = ${F2B_MAX_RETRY}
-sender = ${F2B_SENDER}
+sender = ${SSMTP_USER}
 destemail = ${F2B_DEST_EMAIL}
-action = ${F2B_ACTION}[sendername="${SSMTP_HOSTNAME}"]
+action = ${F2B_ACTION}[sendername="${F2B_SENDERNAME}"]
 
 [sshd]
 port     = ${SSH_PORT}
