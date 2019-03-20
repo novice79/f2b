@@ -1,15 +1,15 @@
-version: "3.2"
+version: "3.4"
 
 services:
   fail2ban:
     image: novice/f2b:latest
     container_name: fail2ban
     network_mode: "host"
-    cap_add:
-      - NET_ADMIN
-      - NET_RAW
+    # stack mode don't support these yet, so need to run standalone
+    # cap_add:
+    #   - NET_ADMIN
+    #   - NET_RAW
     volumes:
       - "/var/log:/var/log:ro"
     env_file:
       - "./f2b.env"
-    restart: always

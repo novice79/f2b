@@ -12,7 +12,7 @@ echo ${TZ} > /etc/timezone
 log "These environment variables, that you can customize via -e"
 log "SSMTP_PORT=${SSMTP_PORT:=587}"
 log "SSMTP_HOST=${SSMTP_HOST:=smtp.exmail.qq.com}"
-HOSTNAME=$(hostname -f)
+HOSTNAME=$(hostname)
 log "SSMTP_USER=${SSMTP_USER:=david}"
 log "SSMTP_PASSWORD=${SSMTP_PASSWORD:=freego}"
 
