@@ -10,3 +10,7 @@ docker run -d --name f2b \
 --restart=always \
 -v /var/log:/var/log:ro \
 novice/f2b
+
+sudo apt install upx
+
+fail2ban-regex myapp.log "^.*failed_ip: <HOST>.*$"

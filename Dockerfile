@@ -1,3 +1,7 @@
+FROM novice/build:latest as my_build
+WORKDIR /workspace
+COPY main.py /workspace/main.py
+RUN pyinstaller -s -F main.py
 
 FROM ubuntu:latest
 LABEL maintainer="David <david@cninone.com>"
@@ -13,6 +17,8 @@ ENV LC_ALL en_US.UTF-8
 COPY sendmail-common.conf /etc/fail2ban/action.d/sendmail-common.conf
 COPY sendmail-whois-lines.conf /etc/fail2ban/action.d/sendmail-whois-lines.conf
 COPY init.sh /init.sh
+
+COPY --from=my_build /workspace/dist/main /main
 
 WORKDIR /etc/fail2ban
 

@@ -34,3 +34,7 @@ t.js
 app
 composer.phar
 /vendor/
+*.spec
+__pycache__
+build/
+dist/

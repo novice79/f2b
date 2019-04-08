@@ -41,6 +41,14 @@ sed -i "s/loglevel =.*/loglevel = $F2B_LOG_LEVEL/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbfile =.*/dbfile = \/data\/db\/fail2ban\.sqlite3/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbpurgeage =.*/dbpurgeage = $F2B_DB_PURGE_AGE/g" /etc/fail2ban/fail2ban.conf
 
+cat > /etc/fail2ban/filter.d/nb.conf <<EOL
+[INCLUDES]
+[Definition]
+failregex = ^.*failed_ip: <HOST>.*$
+ignoreregex =
+
+EOL
+
 cat > /etc/fail2ban/jail.local <<EOL
 [DEFAULT]
 bantime  = 7200
@@ -49,20 +57,19 @@ sender = ${SSMTP_USER}
 destemail = ${F2B_DEST_EMAIL}
 action = ${F2B_ACTION}[sendername="${F2B_SENDERNAME}"]
 
+[nb]
+enabled  = true
+port     = http,https
+backend  = auto
+filter   = nb
+logpath  = /var/log/novice-ban.log
+maxretry = 3
+findtime = 300
+
 [sshd]
 port     = ${SSH_PORT}
 EOL
 
-fail2ban-server -f -x -v start
-# no pgrep && ps
-# while [ 1 ]
-# do
-#     sleep 2
-#     SERVICE="mysqld"
-#     if ! pidof "$SERVICE" >/dev/null
-#     then
-#         echo "$SERVICE stopped. restart it"
-#         SERVICE &
-#         # send mail ?
-#     fi
-# done
+fail2ban-server -x -v start
+
+/main
