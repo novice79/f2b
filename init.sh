@@ -62,7 +62,7 @@ enabled  = true
 port     = http,https
 backend  = auto
 filter   = nb
-logpath  = /var/log/novice-ban.log
+logpath  = /data/db/novice-ban.log
 maxretry = 3
 findtime = 300
 

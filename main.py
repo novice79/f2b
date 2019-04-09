@@ -8,7 +8,7 @@ from sanic.log import logger
 import logging
 
 app = Sanic()
-logging.basicConfig(format='%(asctime)s %(message)s', filename='/var/log/novice-ban.log', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s %(message)s', filename='/data/db/novice-ban.log', level=logging.INFO)
 def dict2obj(in_dict):
     class Struct(object):
         def __init__(self, in_dict):
