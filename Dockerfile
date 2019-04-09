@@ -8,7 +8,7 @@ LABEL maintainer="David <david@cninone.com>"
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && apt install -y fail2ban iptables inetutils-ping whois ssmtp locales tzdata vim sqlite3 \
-    && mkdir -p /var/run/fail2ban /data/db \
+    && mkdir -p /var/run/fail2ban /data/db && touch /data/db/novice-ban.log \
     && locale-gen en_US.UTF-8 zh_CN.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
