@@ -16,7 +16,7 @@ ENV LC_ALL en_US.UTF-8
 
 COPY sendmail-common.conf /etc/fail2ban/action.d/sendmail-common.conf
 COPY sendmail-whois-lines.conf /etc/fail2ban/action.d/sendmail-whois-lines.conf
-COPY docker-iptables-multiport.conf /etc/fail2ban/action.d/docker-iptables-multiport.conf
+# COPY docker-iptables-multiport.conf /etc/fail2ban/action.d/docker-iptables-multiport.conf
 COPY init.sh /init.sh
 
 COPY --from=my_build /workspace/dist/main /main

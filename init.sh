@@ -59,8 +59,8 @@ action = ${F2B_ACTION}[sendername="${F2B_SENDERNAME}"]
 
 [nb]
 enabled  = true
-port     = http,https
-action   = docker-iptables-multiport[name=AuthFailed]
+# port     = http,https
+chain    = DOCKER-USER
 filter   = nb
 logpath  = /data/db/novice-ban.log
 maxretry = 3
