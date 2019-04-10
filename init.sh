@@ -59,7 +59,7 @@ action = ${F2B_ACTION}[sendername="${F2B_SENDERNAME}"]
 
 [nb]
 enabled  = true
-# port     = http,https
+port     = http,https
 chain    = DOCKER-USER
 filter   = nb
 logpath  = /data/db/novice-ban.log
