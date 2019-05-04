@@ -16,6 +16,7 @@ HOSTNAME=$(hostname)
 log "SSMTP_USER=${SSMTP_USER:=david}"
 log "SSMTP_PASSWORD=${SSMTP_PASSWORD:=freego}"
 
+log "F2B_IPTABLES_CHAIN=${F2B_IPTABLES_CHAIN:=DOCKER-USER}"
 log "F2B_LOG_LEVEL=${F2B_LOG_LEVEL:=INFO}"
 log "F2B_DB_PURGE_AGE=${F2B_DB_PURGE_AGE:=1d}"
 log "F2B_MAX_RETRY=${F2B_MAX_RETRY:=3}"
@@ -60,7 +61,7 @@ action = ${F2B_ACTION}[sendername="${F2B_SENDERNAME}"]
 [nb]
 enabled  = true
 port     = http,https
-chain    = DOCKER-USER
+chain    =${F2B_IPTABLES_CHAIN}
 filter   = nb
 logpath  = /data/db/novice-ban.log
 maxretry = 3
